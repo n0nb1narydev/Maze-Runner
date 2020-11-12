@@ -15,6 +15,10 @@ public class Player : MonoBehaviour
     private AudioSource _foot;
     Vector3 lastPosition; // last place player was on update
     float moveMinimum = 0.01f; 
+    public bool playerCanPickUp = false;
+    public bool hasPumpkin = false;
+    [SerializeField]
+    private GameObject _pumpkinInHand;
 
     void Start()
     {
@@ -39,12 +43,18 @@ public class Player : MonoBehaviour
         }
 
         CalculateMovement();
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (playerCanPickUp && !hasPumpkin)
+            {
+                PickupPumpkin();
+            }
+        }
     }
 
 
     void CalculateMovement()
     {
-
         float horizontalInput = Input.GetAxis("Horizontal");
         float verticalInput = Input.GetAxis("Vertical");
 
@@ -57,7 +67,6 @@ public class Player : MonoBehaviour
         velocity = transform.transform.TransformDirection(velocity);
 
         _cc.Move(velocity * Time.deltaTime);
-
     }
 
     IEnumerator DisableAgent()
@@ -77,10 +86,6 @@ public class Player : MonoBehaviour
                 {
                     _foot.Play();
                 }
-                // else if(_foot.isPlaying)
-                // {
-
-                // }
             }
             else
             {
@@ -88,5 +93,11 @@ public class Player : MonoBehaviour
             }
             yield return null;
         }
+    }
+
+    private void PickupPumpkin()
+    {
+        _pumpkinInHand.SetActive(true);
+        hasPumpkin = true;
     }
 }
