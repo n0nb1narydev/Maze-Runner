@@ -19,6 +19,7 @@ public class Player : MonoBehaviour
     public bool hasPumpkin = false;
     [SerializeField]
     private GameObject _pumpkinInHand;
+    public bool droppedPumpkin = false;
 
     void Start()
     {
@@ -48,6 +49,13 @@ public class Player : MonoBehaviour
             if (playerCanPickUp && !hasPumpkin)
             {
                 PickupPumpkin();
+            }
+        }
+        if(Input.GetKeyDown(KeyCode.F))
+        {
+            if(hasPumpkin)
+            {
+                StopCoroutine(DropPumpkin());
             }
         }
     }
@@ -99,5 +107,14 @@ public class Player : MonoBehaviour
     {
         _pumpkinInHand.SetActive(true);
         hasPumpkin = true;
+    }
+    
+    private IEnumerator DropPumpkin()
+    {
+        _pumpkinInHand.SetActive(false);
+        hasPumpkin = false;
+        droppedPumpkin = true;
+        yield return new WaitForSeconds(3f);
+        droppedPumpkin = false;
     }
 }

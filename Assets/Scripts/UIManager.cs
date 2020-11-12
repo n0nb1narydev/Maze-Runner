@@ -33,7 +33,10 @@ public class UIManager : MonoBehaviour
     }
     public void ActivatePickupText()
     {
-        _pickupText.gameObject.SetActive(true);
+        if (!_player.hasPumpkin)
+        {
+            _pickupText.gameObject.SetActive(true);
+        }
     }
     public void DeactivatePickupText()
     {

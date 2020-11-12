@@ -42,4 +42,9 @@ public class Pumpkin : MonoBehaviour
             _player.playerCanPickUp = false;
         }
     }
+
+    public IEnumerator PlayDropSound()
+    {
+        yield return new WaitForSeconds(1f);
+    }
 }
