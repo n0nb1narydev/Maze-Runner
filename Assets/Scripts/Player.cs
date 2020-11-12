@@ -23,6 +23,8 @@ public class Player : MonoBehaviour
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
 
+        StartCoroutine(PlaySounds());
+
     }
 
     // Update is called once per frame
@@ -37,7 +39,6 @@ public class Player : MonoBehaviour
         }
 
         CalculateMovement();
-        startCoroutine(PlaySounds());
     }
 
 
@@ -68,17 +69,24 @@ public class Player : MonoBehaviour
 
     IEnumerator PlaySounds()
     {
-        if(Input.GetAxis("Vertical") != 0f)
+        while(true)
         {
-            if(!_foot.isPlaying)
+            if(Input.GetAxis("Vertical") != 0f)
             {
-                _foot.Play();
+                if(!_foot.isPlaying)
+                {
+                    _foot.Play();
+                }
+                // else if(_foot.isPlaying)
+                // {
+
+                // }
             }
-            else if(_foot.isPlaying)
+            else
             {
-                yield return new WaitForSeconds(1);
                 _foot.Stop();
             }
+            yield return null;
         }
     }
 }
