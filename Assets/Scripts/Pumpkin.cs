@@ -6,6 +6,7 @@ public class Pumpkin : MonoBehaviour
 {
     private UIManager _uiManager;
     private Player _player;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -24,6 +25,17 @@ public class Pumpkin : MonoBehaviour
         {
             _uiManager.DeactivateDropText();
         }
+
+        if(Input.GetKeyDown(KeyCode.E))
+        {
+            if (_player.playerCanPickUp && !_player.hasPumpkin)
+            {
+                _player.PickupPumpkin();
+                _uiManager.DeactivateDropText();
+                Destroy(this.gameObject);
+            }
+        }
+
     }
 
     private void OnTriggerEnter(Collider other) 

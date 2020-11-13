@@ -20,6 +20,10 @@ public class Player : MonoBehaviour
     [SerializeField]
     private GameObject _pumpkinInHand;
     public bool droppedPumpkin = false;
+    [SerializeField]
+    private AudioSource _drop;
+    [SerializeField]
+    private GameObject _pumpkinPrefab;
 
     void Start()
     {
@@ -44,20 +48,15 @@ public class Player : MonoBehaviour
         }
 
         CalculateMovement();
-        if(Input.GetKeyDown(KeyCode.E))
-        {
-            if (playerCanPickUp && !hasPumpkin)
-            {
-                PickupPumpkin();
-            }
-        }
+
         if(Input.GetKeyDown(KeyCode.F))
         {
             if(hasPumpkin)
             {
-                StopCoroutine(DropPumpkin());
+                StartCoroutine(DropPumpkin());
             }
         }
+
     }
 
 
@@ -103,7 +102,7 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void PickupPumpkin()
+    public void PickupPumpkin()
     {
         _pumpkinInHand.SetActive(true);
         hasPumpkin = true;
@@ -113,8 +112,8 @@ public class Player : MonoBehaviour
     {
         _pumpkinInHand.SetActive(false);
         hasPumpkin = false;
-        droppedPumpkin = true;
-        yield return new WaitForSeconds(3f);
-        droppedPumpkin = false;
+        GameObject pumpkinDrop = Instantiate(_pumpkinPrefab, transform.position, Quaternion.identity);
+        yield return new WaitForSeconds(.5f);
+        _drop.Play();
     }
 }
