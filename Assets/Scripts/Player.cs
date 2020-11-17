@@ -113,7 +113,7 @@ public class Player : MonoBehaviour
         _pumpkinInHand.SetActive(false);
         hasPumpkin = false;
         GameObject pumpkinDrop = Instantiate(_pumpkinPrefab, transform.position, Quaternion.identity);
-        yield return new WaitForSeconds(.5f);
+        yield return new WaitForSeconds(.15f);
         _drop.Play();
     }
 }

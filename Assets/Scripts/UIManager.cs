@@ -10,6 +10,10 @@ public class UIManager : MonoBehaviour
     [SerializeField]
     Text _dropText;
     private Player _player;
+    [SerializeField]
+    GameObject _congrats;
+    [SerializeField]
+    GameObject _newGameText;
 
     // Start is called before the first frame update
     void Start()
@@ -41,5 +45,10 @@ public class UIManager : MonoBehaviour
     public void DeactivatePickupText()
     {
         _pickupText.gameObject.SetActive(false);
+    }
+    public void ActivateGameOverText()
+    {
+        _congrats.SetActive(true);
+        _newGameText.SetActive(true);
     }
 }
